@@ -43,5 +43,26 @@ Output
 '''
 
 testCases = int(input())
-for i in range(testCases):
-    pass
+for _ in range(testCases):
+    stacks, stackSize, quota = map(int, input().split())
+
+    plates = []
+    for j in range(stacks):
+        plates.append(list(map(int, input().split())))
+
+    # precompute stack sum, let sum[i][x] denote sum of first x plates in the i_th stack
+    s = [[0] * stackSize for x in range(stacks)]
+    for j in range(stacks):
+        s[j][0] = plates[j][0]
+        for x in range(1, stackSize):
+            s[j][x] = s[j][x - 1] + plates[j][x]
+
+ 
+
+    dp = [[0] * quota for x in range(stacks)]
+    for i in range(stacks):
+        for j in range(quota):
+            for x in range(min(j, stackSize)):
+                dp[i][j] = max(dp[i][j], s[i][x] + dp[i-1][j-x])
+
+    print('Cast #{}: {}'.format(_, dp[-1][-1]))
