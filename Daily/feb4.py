@@ -14,28 +14,14 @@ class ListNode:
 
 class Solution:
     def hasCycle(self, head: ListNode) -> bool:
-        isloop = True
-
-        if head is None:
-            return False
-
-        if head.next is None:
-            return False
-
         it1 = head
-        it2 = head.next
+        it2 = head
 
-        while it1 != it2:
-            if it1 is None or it2 is None:
-                isloop = False
-                break
-
+        while it2 is not None and it2.next is not None:
             it1 = it1.next
-
-            if it2.next is None:
-                isloop = False
-                break
-
             it2 = it2.next.next
 
-        return isloop
+            if it1 == it2:
+                return True
+
+        return False
