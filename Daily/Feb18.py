@@ -30,27 +30,19 @@ class Solution:
         if len(A) < 3:
             return 0
 
-        counter = 0
-        currentLength = 1
-        diff = A[1] - A[0]
-        for i in range(len(A) - 1):
-            if diff == (A[i+1] - A[i]):
-                currentLength += 1
+        total = 0
+        curlen = 0
+        for i in range(2, len(A)):
+            if (A[i] - A[i-1] == A[i-1] - A[i-2]):
+                curlen += 1
             else:
-                diff = A[i+1] - A[i]
-                if currentLength >= 3:
-                    t = currentLength - 3 + 1
-                    counter += (t + 1) * t // 2
-                currentLength = 2
-        
-        if currentLength >= 3:
-            t = currentLength - 3 + 1
-            counter += (t + 1) * t // 2
-
-        return counter
+                total += curlen * (curlen + 1) // 2
+                curlen = 0
+        total += curlen * (curlen + 1) // 2
+        return total
 
 soln = Solution()
 
 print(soln.numberOfArithmeticSlices([1,2,3,4,5]))
 print(soln.numberOfArithmeticSlices([1,2,3,4,5,6]))
-print(soln.numberOfArithmeticSlices([1,2,3,4,6,8,10,10,10,10,10]))
+print(soln.numberOfArithmeticSlices([1,2,3,4,6,8,10,10,10,10]))
