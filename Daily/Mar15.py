@@ -25,7 +25,7 @@ class Codec:
             if key not in self.stlmap:
                 self.ltsmap[longUrl] = key
                 self.stlmap[key] = longUrl
-                break;
+                break
                 
         return key
         
