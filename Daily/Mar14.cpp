@@ -26,28 +26,28 @@ Output: [7,9,6,6,8,7,3,0,9,5]
 class Solution {
 public:
     ListNode* swapNodes(ListNode* head, int k) {
-        ListNode* rtn = head;
         ListNode* itr = head;
-        ListNode* itr2 = head;
-        vector<int> cnt;
+        ListNode* kc = head;
+        ListNode* nkc = head;
+        bool isnk = false;
+        
         while (itr != nullptr) {
-            cnt.push_back(itr->val);
+            if (k == 1) break;
+            k -= 1;
             itr = itr->next;
         }
         
-        int tmp = cnt[cnt.size() - k];
-        cnt[cnt.size() - k] = cnt[k - 1];
-        cnt[k - 1] = tmp;
+        kc = itr;
         
-        int i = 0;
-        while (itr2 != nullptr) {
-            if (itr2->val != cnt[i]) {
-                itr2->val = cnt[i];
-            }
-            itr2 = itr2->next;
-            i++;
+        while (itr->next != nullptr) {
+            itr = itr->next;
+            nkc = nkc->next;
         }
         
-        return rtn;
+        int tmp = nkc->val;
+        nkc->val = kc->val;
+        kc->val = tmp;
+        
+        return head;
     }
 };
